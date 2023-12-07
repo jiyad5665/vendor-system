@@ -65,8 +65,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':'vendor',
-        'user':'jiyad',
-        'password':'1234',
+        'USER':'jiyad',
+        'PASSWORD':'1234',
         'HOST':'localhost',
         'PORT':'5432'
     }
@@ -102,9 +102,9 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS=[
-    BASE_DIR/"Static"
-]
+# STATICFILES_DIRS=[
+#     BASE_DIR/"Static"
+# ]
 
 MEDIA_URL='/Media/'
 MEDIA_ROOT=BASE_DIR/"media"

@@ -4,14 +4,14 @@ from django.db import models
 
 
 class Vendor(models.Model):
-    name=models.CharField(max_length=150)
+    name=models.CharField(max_length=150,unique=True)
     contact_details=models.TextField()
     address=models.TextField()
-    vender_code=models.CharField(max_length=150)
-    on_time_delivery_rate=models.FloatField()
-    quality_rating_avg=models.FloatField()
-    average_response_time=models.FloatField()
-    fulfilment_rate=models.FloatField()
+    vender_code=models.CharField(max_length=150,unique=True)
+    on_time_delivery_rate=models.FloatField(default=0)
+    quality_rating_avg=models.FloatField(default=0)
+    average_response_time=models.FloatField(default=0)
+    fulfilment_rate=models.FloatField(default=0)
 
    
     
