@@ -29,7 +29,7 @@ class Vendor(models.Model):
 class Perfomance(models.Model):
     vendor=models.ForeignKey(Vendor,on_delete=models.CASCADE)
     date=models.DateTimeField()
-    on_time_delivery_date=models.FloatField()
+    on_time_delivery_rate=models.FloatField()
     quality_rating_avg=models.FloatField()
     average_respose_time=models.FloatField()
     fulfilment_rate=models.FloatField()
@@ -42,5 +42,5 @@ class Perfomance(models.Model):
         ordering= ('-id',)
 
     def __str__(self):
-        return self.vendor
+        return self.vendor.name
 

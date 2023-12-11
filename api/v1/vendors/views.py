@@ -3,7 +3,7 @@ import requests
 
 import datetime
 from purchase.models import Purchase
-from .serializers import VendorsSerializer
+from .serializers import VendorsSerializer,PerfomancesSerializer
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -52,36 +52,11 @@ def vendor(request):
             }
         serializer=VendorsSerializer(instances,many=True,context=context)
 
-        request_data={
+        response_data={
             "status_code":6000,
             "data":serializer.data,
             }
         return Response(response_data)
-
-            
-
-
-
-    
-
-
-@api_view(["GET"])
-@permission_classes([AllowAny])
-def vendor_list(request):
-    instances=Vendor.objects.all()
-    context={
-        "request":request
-    }
-    serializer=VendorsSerializer(instances,many=True,context=context)
-
-
-    response_data={
-        "status_code":6000,
-        "data":serializer.data,
-    }
-    return Response(response_data)
-    
-
 
 
 
@@ -145,5 +120,16 @@ def vendor_update(request):
 
 @api_view(["GET"])
 @permission_classes([AllowAny])
-def perfomance(request):
-    pass
+def perfomance(request,id):
+    vendor=get_object_or_404(Vendor, id=id)
+    instance = get_object_or_404(Perfomance,vendor=vendor)
+    context={
+                "request":request
+            }
+    serializer=PerfomancesSerializer(instance,context=context)
+
+    response_data={
+            "status_code":6000,
+            "data":serializer.data,
+        }
+    return Response(response_data)

@@ -8,7 +8,7 @@ app_name="vendors"
 urlpatterns= [
     path("",views.vendor),
     path('<int:id>/',views.vendor_update),
-    path('<int:id>/perfomance',views.perfomance),
+    path('<int:id>/perfomance/',views.perfomance),
 
 ]
 
