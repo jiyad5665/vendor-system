@@ -29,10 +29,10 @@ class Vendor(models.Model):
 class Perfomance(models.Model):
     vendor=models.ForeignKey(Vendor,on_delete=models.CASCADE)
     date=models.DateTimeField()
-    on_time_delivery_rate=models.FloatField()
-    quality_rating_avg=models.FloatField()
-    average_respose_time=models.FloatField()
-    fulfilment_rate=models.FloatField()
+    on_time_delivery_rate=models.FloatField(default=0)
+    quality_rating_avg=models.FloatField(default=0)
+    average_response_time=models.FloatField(default=0)
+    fulfilment_rate=models.FloatField(default=0)
 
 
     class Meta:

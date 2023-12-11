@@ -6,6 +6,7 @@ import datetime
 from django.shortcuts import get_object_or_404
 from purchase.models import Purchase
 from .serializers import PurchaseSerializer
+from vendors.models import Vendor, Perfomance
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -15,30 +16,45 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def create_new_purchase(request):
-     if request.method =="POST":
-        name=request.data.get('name')
-        contact_details=request.data.get('contact_details')
-        address=request.data.get('address')
+    if request.method =="POST":
+        vendor=request.data.get('vendor')
+        quantity=request.data.get('quantity')
+        items = request.data.get('items')
+        vendor = Vendor.objects.get(id=vendor)
+        last_purchase=Purchase.objects.all().first()
 
-        last_Purchase=Purchase.objects.all().first()
-
-        if last_Purchase is not None:
-           id=last_Purchase.id
-           Purchase_code=f"VD00{id+1}"
+        if last_purchase is not None:
+            id=last_purchase.id
+            po_number=f"PUR00{id+1}"
         else:
-          Purchase_code="VD001"
-        Purchase=Purchase.objects.create(
-            name=name,
-            contact_details=contact_details,
-            address=address,
-            Purchase_code=Purchase_code
+            po_number="PUR001"
+
+        purchase=Purchase.objects.create(
+            po_number=po_number,
+            vendor=vendor,
+            quantity=quantity,
+            items=items,
+            status= 1,
         )
-        Purchase.save()
+        purchase.save()
         
         response_data={
             "success_code":6000,
-            "message":"purchase created successfully"
+            "message":"purchased successfully"
         }
+        return Response(response_data)
+    
+    elif request.method == "GET":
+        instances = Purchase.objects.all()
+        context={
+            "request":request
+            }
+        serializer=PurchaseSerializer(instances,many=True,context=context)
+
+        response_data={
+            "status_code":6000,
+            "data":serializer.data,
+            }
         return Response(response_data)
 
 

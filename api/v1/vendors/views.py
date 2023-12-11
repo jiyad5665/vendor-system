@@ -38,6 +38,15 @@ def vendor(request):
             vender_code=vendor_code
         )
         vendor.save()
+
+        date = datetime.datetime.today()
+
+        perfomance= Perfomance.objects.create(
+            vendor=vendor,
+            date=date
+        )
+
+        perfomance.save()
         
         response_data={
             "success_code":6000,
