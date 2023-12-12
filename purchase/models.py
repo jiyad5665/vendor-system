@@ -14,6 +14,7 @@ class Purchase(models.Model):
     vendor=models.ForeignKey(Vendor, on_delete=models.CASCADE)
     order_date=models.DateTimeField(auto_now=True)
     deliverydate=models.DateTimeField(blank=True, null=True)
+    expected_deliverydate=models.DateTimeField(blank=True, null=True)
     items=models.JSONField()
     quantity=models.IntegerField()
     status=models.CharField(max_length=25,choices=STATUS_CHOICES)

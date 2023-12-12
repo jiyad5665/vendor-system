@@ -66,7 +66,7 @@ def vendor(request):
             "data":serializer.data,
             }
         return Response(response_data)
-
+ 
 
 
 
@@ -86,7 +86,7 @@ def vendor_update(request):
             "data":serializer.data,
         }
         return Response(response_data)
-
+    
     elif  request.method =="PUT":
         
         name =request.data.get("name")
@@ -104,7 +104,7 @@ def vendor_update(request):
         if address is not None:
             instance.address=name
             instance.save()
-        
+    
         response_data={
             "success_code":6000,
             "message":"vender updated succesfully"
